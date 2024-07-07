@@ -17,8 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.pedro.taskmanagement.domain.User;
-import com.pedro.taskmanagement.dto.UserDTO;
+import com.pedro.taskmanagement.dto.UserRegisterDTO;
+import com.pedro.taskmanagement.dto.UserResponseDTO;
 import com.pedro.taskmanagement.services.UserService;
+
+import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/users")
@@ -28,22 +31,23 @@ public class UserController {
     private UserService service;
 
     @GetMapping
-    public ResponseEntity<List<UserDTO>> findAll() {
+    public ResponseEntity<List<UserResponseDTO>> findAll() {
         List<User> list = service.findAll();
-        List<UserDTO> listDto = list.stream().map(x -> new UserDTO(x)).collect(Collectors.toList());
+        List<UserResponseDTO> listDto = list.stream().map(x -> new UserResponseDTO(x)).collect(Collectors.toList());
         return ResponseEntity.ok().body(listDto);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserDTO> findById(@PathVariable String id) {
+    public ResponseEntity<UserResponseDTO> findById(@PathVariable String id) {
         User obj = service.findById(id);
-        return ResponseEntity.ok().body(new UserDTO(obj));
+        return ResponseEntity.ok().body(new UserResponseDTO(obj));
     }
 
     @PostMapping
-    public ResponseEntity<Void> insert(@RequestBody User obj) {
-        service.insert(obj);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}").buildAndExpand(obj.getId()).toUri();
+    public ResponseEntity<Void> insert(@RequestBody @Valid UserRegisterDTO obj) {
+        User user = service.insert(obj);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}").buildAndExpand(user.getId())
+                .toUri();
         return ResponseEntity.created(uri).build();
     }
 
