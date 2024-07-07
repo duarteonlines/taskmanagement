@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import com.pedro.taskmanagement.domain.User;
 
-public class UserDTO implements Serializable {
+public class UserResponseDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -12,10 +12,10 @@ public class UserDTO implements Serializable {
     private String username;
     private String email;
 
-    public UserDTO() {
+    public UserResponseDTO() {
     }
 
-    public UserDTO(User obj) {
+    public UserResponseDTO(User obj) {
         id = obj.getId();
         username = obj.getUsername();
         email = obj.getEmail();
