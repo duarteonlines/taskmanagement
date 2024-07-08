@@ -1,12 +1,8 @@
-package com.pedro.taskmanagement.domain;
+package com.pedro.taskmanagement.domain.user;
+
+import jakarta.persistence.*;
 
 import java.io.Serializable;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tb_user")
@@ -20,6 +16,7 @@ public class User implements Serializable {
     private String name;
     private String username;
     private String password;
+    @Column(unique = true)
     private String email;
 
     public User() {
