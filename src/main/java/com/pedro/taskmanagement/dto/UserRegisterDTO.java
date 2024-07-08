@@ -2,7 +2,7 @@ package com.pedro.taskmanagement.dto;
 
 import java.io.Serializable;
 
-import com.pedro.taskmanagement.domain.User;
+import com.pedro.taskmanagement.domain.user.User;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
