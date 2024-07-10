@@ -50,7 +50,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<JwtTokenDTO> authenticateUser(@RequestBody UserLoginDTO obj) {
+    public ResponseEntity<JwtTokenDTO> authenticateUser(@RequestBody @Valid UserLoginDTO obj) {
         JwtTokenDTO token = service.authenticateUser(obj);
         return ResponseEntity.ok().body(token);
     }
