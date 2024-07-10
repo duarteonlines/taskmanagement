@@ -1,15 +1,13 @@
 package com.pedro.taskmanagement.controller.exceptions;
 
+import com.pedro.taskmanagement.exception.AlreadyExistsException;
+import com.pedro.taskmanagement.exception.ObjectNotFoundException;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-
-import com.pedro.taskmanagement.exception.AlreadyExistsException;
-import com.pedro.taskmanagement.exception.ObjectNotFoundException;
-
-import jakarta.servlet.http.HttpServletRequest;
 
 @ControllerAdvice
 public class ControllerExceptionHandler {
@@ -23,8 +21,12 @@ public class ControllerExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<StandardError> validation(MethodArgumentNotValidException e, HttpServletRequest request) {
+        String errorMessage = e.getBindingResult().getFieldErrors().stream()
+                .map(error -> error.getField() + ": " + error.getDefaultMessage())
+                .reduce((error1, error2) -> error1 + ", " + error2)
+                .orElse("Validation failed");
         StandardError err = new StandardError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(),
-                e.getMessage(), request.getRequestURI());
+                errorMessage, request.getRequestURI());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
     }
 
