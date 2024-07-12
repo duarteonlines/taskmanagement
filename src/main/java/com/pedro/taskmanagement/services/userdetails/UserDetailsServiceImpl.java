@@ -1,4 +1,4 @@
-package com.pedro.taskmanagement.services.authorization;
+package com.pedro.taskmanagement.services.userdetails;
 
 import com.pedro.taskmanagement.domain.user.User;
 import com.pedro.taskmanagement.domain.user.UserDetailsImpl;
@@ -11,7 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AuthorizationService implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     UserRepository repository;

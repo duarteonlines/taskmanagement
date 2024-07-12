@@ -1,58 +1,60 @@
 package com.pedro.taskmanagement.domain.user;
 
+import com.pedro.taskmanagement.domain.role.Role;
+import com.pedro.taskmanagement.domain.task.Task;
+import com.pedro.taskmanagement.dto.UserRegisterDTO;
+import jakarta.persistence.*;
+
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.pedro.taskmanagement.domain.role.Role;
-
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
+import java.util.UUID;
 
 @Entity
-@Table(name = "tb_user")
+@Table(name = "users")
 public class User implements Serializable {
-
+    @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+    private UUID id;
     private String name;
     private String username;
     private String password;
     @Column(unique = true)
     private String email;
-
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    @JoinTable(name = "tb_user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles = new ArrayList<>();
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Task task;
 
     public User() {
     }
 
-    public User(String id, String name, String username, String password, String email) {
+    public User(UUID id, String name, String username, String password, String email, Task task) {
         this.id = id;
         this.name = name;
         this.username = username;
         this.password = password;
         this.email = email;
+        this.task = task;
     }
 
-    public String getId() {
+    public User(UserRegisterDTO obj) {
+        this.name  = obj.getName();
+        this.username = obj.getUsername();
+        this.password = obj.getPassword();
+        this.email = obj.getEmail();
+    }
+
+    public UUID getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -94,6 +96,14 @@ public class User implements Serializable {
 
     public void setRoles(List<Role> role) {
         this.roles = role;
+    }
+
+    public Task getTask() {
+        return task;
+    }
+
+    public void setTask(Task task) {
+        this.task = task;
     }
 
     @Override

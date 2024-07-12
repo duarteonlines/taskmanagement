@@ -1,4 +1,4 @@
-package com.pedro.taskmanagement.infra.security;
+package com.pedro.taskmanagement.infra.security.jwt;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;

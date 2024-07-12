@@ -1,4 +1,4 @@
-package com.pedro.taskmanagement.infra.security;
+package com.pedro.taskmanagement.infra.security.jwt;
 
 import com.pedro.taskmanagement.domain.user.User;
 import com.pedro.taskmanagement.domain.user.UserDetailsImpl;
