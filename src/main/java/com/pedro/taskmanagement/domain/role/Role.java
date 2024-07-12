@@ -1,21 +1,16 @@
 package com.pedro.taskmanagement.domain.role;
 
+import com.pedro.taskmanagement.enums.role.RoleName;
+import jakarta.persistence.*;
+
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.UUID;
 
-import com.pedro.taskmanagement.enums.role.RoleName;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-
 @Entity
-@Table(name = "tb_role")
+@Table(name = "roles")
 public class Role implements Serializable {
+    @Serial
     private static final long serialVersionUID = 1L;
 
     @Id

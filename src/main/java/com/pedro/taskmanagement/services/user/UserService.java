@@ -9,7 +9,7 @@ import com.pedro.taskmanagement.dto.UserRegisterDTO;
 import com.pedro.taskmanagement.enums.role.RoleName;
 import com.pedro.taskmanagement.exception.AlreadyExistsException;
 import com.pedro.taskmanagement.exception.ObjectNotFoundException;
-import com.pedro.taskmanagement.infra.security.TokenService;
+import com.pedro.taskmanagement.infra.security.jwt.TokenService;
 import com.pedro.taskmanagement.repositories.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UserService {
@@ -36,9 +37,9 @@ public class UserService {
         return repository.findAll();
     }
 
-    public User findUserById(String id) {
+    public User findUserById(UUID id) {
         Optional<User> obj = repository.findById(id);
-        return obj.orElseThrow(() -> new ObjectNotFoundException("Object Not Found"));
+        return obj.orElseThrow(() -> new ObjectNotFoundException("User Not Found"));
     }
 
     public User createUser(UserRegisterDTO obj) {
@@ -48,7 +49,7 @@ public class UserService {
             throw new AlreadyExistsException("Email already exists");
         }
         User user = new User(null, obj.getName(), obj.getUsername(), passwordEncoder.encode(obj.getPassword()),
-                obj.getEmail());
+                obj.getEmail(), null);
         user.getRoles().add(new Role(null, RoleName.ROLE_EMPLOYEE));
         return repository.save(user);
     }
@@ -61,7 +62,7 @@ public class UserService {
         return new JwtTokenDTO(tokenService.generateToken(userDetails));
     }
 
-    public User updateUserById(String id, User obj) {
+    public User updateUserById(UUID id, User obj) {
         User entity = repository.getReferenceById(id);
         entity.setName(obj.getName());
         entity.setUsername(obj.getUsername());
@@ -70,7 +71,7 @@ public class UserService {
         return repository.save(entity);
     }
 
-    public void deleteUserById(String id) {
+    public void deleteUserById(UUID id) {
         repository.deleteById(id);
     }
 }

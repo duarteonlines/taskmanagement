@@ -1,16 +1,21 @@
 package com.pedro.taskmanagement.dto;
 
-import java.io.Serializable;
-
+import com.pedro.taskmanagement.domain.task.Task;
 import com.pedro.taskmanagement.domain.user.User;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.UUID;
 
 public class UserResponseDTO implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
-    private String id;
+    private UUID id;
     private String username;
     private String email;
+    private Task task;
 
     public UserResponseDTO() {
     }
@@ -19,13 +24,14 @@ public class UserResponseDTO implements Serializable {
         id = obj.getId();
         username = obj.getUsername();
         email = obj.getEmail();
+        task = obj.getTask();
     }
 
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -43,5 +49,13 @@ public class UserResponseDTO implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Task getTask() {
+        return task;
+    }
+
+    public void setTask(Task task) {
+        this.task = task;
     }
 }
