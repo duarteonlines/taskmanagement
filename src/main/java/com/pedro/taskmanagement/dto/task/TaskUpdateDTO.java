@@ -1,18 +1,19 @@
-package com.pedro.taskmanagement.dto;
+package com.pedro.taskmanagement.dto.task;
 
 import com.pedro.taskmanagement.domain.task.Task;
-import com.pedro.taskmanagement.domain.user.User;
 
-public class TaskDTO {
+public class TaskUpdateDTO {
 
     private String title;
     private String description;
-    private User user;
 
-    public TaskDTO(Task task) {
+    public TaskUpdateDTO(){
+
+    }
+
+    public TaskUpdateDTO(Task task) {
         this.title = task.getTitle();
         this.description = task.getDescription();
-        this.user = task.getUser();
     }
 
     public String getTitle() {
@@ -31,11 +32,4 @@ public class TaskDTO {
         this.description = description;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 }

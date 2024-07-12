@@ -1,14 +1,16 @@
-package com.pedro.taskmanagement.dto;
+package com.pedro.taskmanagement.dto.user;
 
+import com.pedro.taskmanagement.domain.role.Role;
+import com.pedro.taskmanagement.domain.task.Task;
 import com.pedro.taskmanagement.domain.user.User;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 
 import java.io.Serial;
-import java.io.Serializable;
+import java.util.List;
 
-public class UserRegisterDTO implements Serializable {
+public class UserUpdateDTO {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -23,12 +25,12 @@ public class UserRegisterDTO implements Serializable {
     @NotBlank(message = "Password is null")
     @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$", message = "Password must contain at least one uppercase letter, one lowercase letter, one number and one special character")
     private String password;
-
-
-    public UserRegisterDTO() {
+    private List<Role> roles;
+    private Task task;
+    public UserUpdateDTO() {
     }
 
-    public UserRegisterDTO(User obj) {
+    public UserUpdateDTO(User obj) {
         name = obj.getName();
         username = obj.getUsername();
         email = obj.getEmail();

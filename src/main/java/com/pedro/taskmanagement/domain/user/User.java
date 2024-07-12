@@ -2,7 +2,6 @@ package com.pedro.taskmanagement.domain.user;
 
 import com.pedro.taskmanagement.domain.role.Role;
 import com.pedro.taskmanagement.domain.task.Task;
-import com.pedro.taskmanagement.dto.UserRegisterDTO;
 import jakarta.persistence.*;
 
 import java.io.Serial;
@@ -41,13 +40,6 @@ public class User implements Serializable {
         this.password = password;
         this.email = email;
         this.task = task;
-    }
-
-    public User(UserRegisterDTO obj) {
-        this.name  = obj.getName();
-        this.username = obj.getUsername();
-        this.password = obj.getPassword();
-        this.email = obj.getEmail();
     }
 
     public UUID getId() {

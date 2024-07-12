@@ -1,4 +1,4 @@
-package com.pedro.taskmanagement.dto;
+package com.pedro.taskmanagement.dto.jwt;
 
 public class JwtTokenDTO {
     String token;
