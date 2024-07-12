@@ -1,5 +1,6 @@
-package com.pedro.taskmanagement.dto;
+package com.pedro.taskmanagement.dto.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pedro.taskmanagement.domain.task.Task;
 import com.pedro.taskmanagement.domain.user.User;
 
@@ -7,7 +8,7 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.UUID;
 
-public class UserResponseDTO implements Serializable {
+public class UserListDTO implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -15,12 +16,13 @@ public class UserResponseDTO implements Serializable {
     private UUID id;
     private String username;
     private String email;
+    @JsonIgnore
     private Task task;
 
-    public UserResponseDTO() {
+    public UserListDTO() {
     }
 
-    public UserResponseDTO(User obj) {
+    public UserListDTO(User obj) {
         id = obj.getId();
         username = obj.getUsername();
         email = obj.getEmail();
@@ -51,11 +53,7 @@ public class UserResponseDTO implements Serializable {
         this.email = email;
     }
 
-    public Task getTask() {
-        return task;
-    }
+    public Task getTask() { return task; }
 
-    public void setTask(Task task) {
-        this.task = task;
-    }
+    public void setTask(Task task) { this.task = task; }
 }

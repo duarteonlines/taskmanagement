@@ -3,9 +3,9 @@ package com.pedro.taskmanagement.services.user;
 import com.pedro.taskmanagement.domain.role.Role;
 import com.pedro.taskmanagement.domain.user.User;
 import com.pedro.taskmanagement.domain.user.UserDetailsImpl;
-import com.pedro.taskmanagement.dto.JwtTokenDTO;
-import com.pedro.taskmanagement.dto.UserLoginDTO;
-import com.pedro.taskmanagement.dto.UserRegisterDTO;
+import com.pedro.taskmanagement.dto.jwt.JwtTokenDTO;
+import com.pedro.taskmanagement.dto.user.UserAuthenticateDTO;
+import com.pedro.taskmanagement.dto.user.UserCreateDTO;
 import com.pedro.taskmanagement.enums.role.RoleName;
 import com.pedro.taskmanagement.exception.AlreadyExistsException;
 import com.pedro.taskmanagement.exception.ObjectNotFoundException;
@@ -42,7 +42,7 @@ public class UserService {
         return obj.orElseThrow(() -> new ObjectNotFoundException("User Not Found"));
     }
 
-    public User createUser(UserRegisterDTO obj) {
+    public User createUser(UserCreateDTO obj) {
         Optional<User> existUser = repository.findByEmail(obj.getUsername());
         System.out.println(existUser);
         if (existUser.isPresent()) {
@@ -54,7 +54,7 @@ public class UserService {
         return repository.save(user);
     }
 
-    public JwtTokenDTO authenticateUser(UserLoginDTO obj) {
+    public JwtTokenDTO authenticateUser(UserAuthenticateDTO obj) {
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
                 obj.getEmail(), obj.getPassword());
         var authentication = authenticationManager.authenticate(usernamePasswordAuthenticationToken);

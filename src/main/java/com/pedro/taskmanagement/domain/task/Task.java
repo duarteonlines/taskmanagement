@@ -1,6 +1,5 @@
 package com.pedro.taskmanagement.domain.task;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pedro.taskmanagement.domain.user.User;
 import jakarta.persistence.*;
 
@@ -21,7 +20,6 @@ public class Task implements Serializable {
     private UUID id;
     private String title;
     private String description;
-    @JsonIgnore
     @OneToOne
     private User user;
     public Task(){
