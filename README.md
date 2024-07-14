@@ -73,6 +73,8 @@ A modelagem de dados é baseada na relação entre tarefas e empregados. As prin
     cd seu-repositorio
     ```
 3. Configure o banco de dados no `application.properties`.
+
+
 4. Execute o projeto com o Maven:
     ```bash
     mvn spring-boot:run
