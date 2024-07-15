@@ -27,7 +27,7 @@ public class User implements Serializable {
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles = new ArrayList<>();
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "user")
     private Task task;
 
     public User() {
@@ -40,6 +40,13 @@ public class User implements Serializable {
         this.password = password;
         this.email = email;
         this.task = task;
+    }
+
+    @PreRemove
+    private void preRemove() {
+        if (task != null) {
+            task.setUser(null);
+        }
     }
 
     public UUID getId() {

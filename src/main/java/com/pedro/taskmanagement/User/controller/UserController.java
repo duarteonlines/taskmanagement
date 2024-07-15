@@ -1,8 +1,8 @@
 package com.pedro.taskmanagement.User.controller;
 
+import com.pedro.taskmanagement.Security.authentication.TokenService;
 import com.pedro.taskmanagement.User.dtos.*;
 import com.pedro.taskmanagement.User.model.User;
-import com.pedro.taskmanagement.Security.authentication.TokenService;
 import com.pedro.taskmanagement.User.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -125,6 +125,20 @@ public class UserController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable UUID id) {
         service.deleteUserById(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @Operation(summary = "Assign Task for User", method = "PATCH")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Task assigned to the user"),
+            @ApiResponse(responseCode = "400", description = "Invalid request parameters"),
+            @ApiResponse(responseCode = "400", description = "Invalid request parameters"),
+            @ApiResponse(responseCode = "403", description = "Not authorized"),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error")
+    })
+    @PatchMapping
+    public ResponseEntity<Void> assignTask(@RequestBody @Valid UserAssignTaskDTO obj){
+        service.assignTask(obj);
         return ResponseEntity.noContent().build();
     }
 }

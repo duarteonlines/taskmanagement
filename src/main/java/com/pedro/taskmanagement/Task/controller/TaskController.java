@@ -42,7 +42,7 @@ public class TaskController {
 
      @Operation(summary = "Search for task per id", method = "GET")
      @ApiResponses(value = {
-             @ApiResponse(responseCode = "200", description = "List all tasks"),
+             @ApiResponse(responseCode = "200", description = "List task per id"),
              @ApiResponse(responseCode = "400", description = "Invalid request params"),
              @ApiResponse(responseCode = "401", description = "Not Authenticated"),
              @ApiResponse(responseCode = "403", description = "Not Authorized"),
@@ -56,7 +56,7 @@ public class TaskController {
 
      @Operation(summary = "Create a new task", method = "POST")
      @ApiResponses(value = {
-             @ApiResponse(responseCode = "201", description = "User created successfully"),
+             @ApiResponse(responseCode = "201", description = "Task created successfully"),
              @ApiResponse(responseCode = "400", description = "Invalid request parameters"),
              @ApiResponse(responseCode = "401", description = "Not Authenticated"),
              @ApiResponse(responseCode = "403", description = "Not authorized"),
@@ -73,7 +73,7 @@ public class TaskController {
 
      @Operation(summary = "Update a task", method = "PUT")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "204", description = "User updated successfully"),
+            @ApiResponse(responseCode = "204", description = "Task updated successfully"),
             @ApiResponse(responseCode = "400", description = "Invalid request parameters"),
             @ApiResponse(responseCode = "401", description = "Not Authenticated"),
             @ApiResponse(responseCode = "403", description = "Not authorized"),
@@ -89,7 +89,7 @@ public class TaskController {
 
     @Operation(summary = "Delete a task", method = "DELETE")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "204", description = "User deleted successfully"),
+            @ApiResponse(responseCode = "204", description = "Task deleted successfully"),
             @ApiResponse(responseCode = "400", description = "Invalid request parameters"),
             @ApiResponse(responseCode = "401", description = "Not Authenticated"),
             @ApiResponse(responseCode = "403", description = "Not authorized"),
