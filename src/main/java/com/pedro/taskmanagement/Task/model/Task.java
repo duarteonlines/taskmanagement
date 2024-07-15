@@ -21,6 +21,7 @@ public class Task implements Serializable {
     private String title;
     private String description;
     @OneToOne
+    @JoinColumn(name = "user_id")
     private User user;
     public Task(){
 

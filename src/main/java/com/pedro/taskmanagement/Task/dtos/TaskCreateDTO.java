@@ -1,10 +1,13 @@
 package com.pedro.taskmanagement.Task.dtos;
 
 import com.pedro.taskmanagement.Task.model.Task;
+import jakarta.validation.constraints.NotBlank;
 
 public class TaskCreateDTO {
 
+    @NotBlank(message = "Title is null")
     private String title;
+    @NotBlank(message = "Description is null")
     private String description;
 
     public TaskCreateDTO(){

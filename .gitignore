@@ -33,4 +33,3 @@ build/
 .vscode/
 
 /src/main/java/com/pedro/taskmanagement/config
-src/main/resources/application.properties
