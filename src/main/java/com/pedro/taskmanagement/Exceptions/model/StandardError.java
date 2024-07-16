@@ -2,7 +2,6 @@ package com.pedro.taskmanagement.Exceptions.model;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.List;
 
 public class StandardError implements Serializable {
 
@@ -12,7 +11,6 @@ public class StandardError implements Serializable {
     private Long timestamp;
     private Integer status;
     private String error;
-    private List<String> errors;
     private String path;
 
     public StandardError() {
@@ -25,10 +23,9 @@ public class StandardError implements Serializable {
         this.path = path;
     }
 
-    public StandardError(Long timestamp, Integer status, List<String> errors, String path) {
+    public StandardError(Long timestamp, Integer status, String path) {
         this.timestamp = timestamp;
         this.status = status;
-        this.errors = errors;
         this.path = path;
     }
 
@@ -54,14 +51,6 @@ public class StandardError implements Serializable {
 
     public void setError(String error) {
         this.error = error;
-    }
-
-    public List<String> getErrors() {
-        return errors;
-    }
-
-    public void setErrors(List<String> errors) {
-        this.errors = errors;
     }
 
     public String getPath() {
