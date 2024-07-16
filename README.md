@@ -61,28 +61,6 @@ A modelagem de dados é baseada na relação entre tarefas e empregados. As prin
 - **Java**
 - **Spring Framework**
 - **PostgreSQL**
-- **Docker**
-
-## Como Executar o Projeto
-1. Clone o repositório:
-    ```bash
-    git clone https://github.com/seu-usuario/seu-repositorio.git
-    ```
-2. Navegue até o diretório do projeto:
-    ```bash
-    cd seu-repositorio
-    ```
-3. Configure o banco de dados no `application.properties`.
-
-
-4. Execute o projeto com o Maven:
-    ```bash
-    mvn spring-boot:run
-    ```
-5. Acesse a aplicação no navegador:
-    ```bash
-    http://localhost:8080
-    ```
 
 ## Contribuição
 Contribuições são bem-vindas! Sinta-se à vontade para abrir issues e pull requests.
