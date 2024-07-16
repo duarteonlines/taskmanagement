@@ -107,7 +107,7 @@ public class UserController {
 
     })
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> updateAdmin(@PathVariable UUID id, @RequestBody UserUpdateDTO obj) {
+    public ResponseEntity<Void> updateAdmin(@PathVariable UUID id, @RequestBody @Valid UserUpdateDTO obj) {
         service.updateUserById(id, obj);
         return ResponseEntity.noContent().build();
     }

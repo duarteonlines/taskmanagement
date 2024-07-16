@@ -46,13 +46,9 @@ public class UserService {
     }
 
     public User createUser(UserCreateDTO obj) {
-        Optional<User> existUser = repository.findByEmail(obj.getEmail());
-        if (existUser.isPresent()) {
-            throw new AlreadyExistsException("Email already exists");
-        }
-        User user = new User(null, obj.getName(), obj.getUsername(), passwordEncoder.encode(obj.getPassword()),
-                obj.getEmail(), null);
-        user.getRoles().add(new Role(null, RoleName.ROLE_EMPLOYEE));
+        checkExistenceUniqueData(obj);
+        User user = new User();
+        createUserData(user, obj);
         return repository.save(user);
     }
 
@@ -66,34 +62,92 @@ public class UserService {
 
     public void updateUserById(UUID id, UserUpdateDTO obj) {
         Optional<User> user = repository.findById(id);
-        if(user.isEmpty()){
-            throw new ObjectNotFoundException("User Not Found");
-        }
-        user.get().setName(obj.getName());
-        user.get().setUsername(obj.getUsername());
-        user.get().setPassword(passwordEncoder.encode(obj.getPassword()));
-        user.get().setEmail(obj.getEmail());
-        repository.save(user.get());
+        
+        validateExistenceUser(user);
+        updateDataUser(user, obj);
+        User updatedUser = user.get();
+        
+        repository.save(updatedUser);
     }
 
     public void deleteUserById(UUID id) {
+        Optional<User> user = repository.findById(id);
+        validateExistenceUser(user);
         repository.deleteById(id);
     }
 
-    public void assignTask(UserAssignTaskDTO obj){
-        Optional<User> existsUser = repository.findById(obj.getUser());
-        Optional<Task> existsTask = taskRepository.findById(obj.getTask());
+    public void assignTask(UserAssignTaskDTO obj) {
+        UUID userId = UUID.fromString(obj.getUser());
+        UUID taskId = UUID.fromString(obj.getTask());
 
-        if(existsTask.isEmpty() || existsUser.isEmpty()) {
-            throw new ObjectNotFoundException("User or Task not found!");
-        }
+        Optional<User> existsUser = repository.findById(userId);
+        Optional<Task> existsTask = taskRepository.findById(taskId);
 
-        User user = existsUser.get();
+        validateExistenceAssignment(existsTask, existsUser);
+
         Task task = existsTask.get();
-        user.setTask(task);
-        task.setUser(user);
+        User user = existsUser.get();
 
+        validateTaskAssignment(task);
+        validateUserAssignment(user);
+        assignTaskForUser(task, user);
+        
         repository.save(user);
-        taskRepository.save(task);
     }
+
+    private void createUserData(User user, UserCreateDTO obj) {
+        user.setName(obj.getName());
+        user.setUsername(obj.getUsername());
+        user.setPassword(obj.getPassword());
+        user.setEmail(obj.getEmail());
+        user.getRoles().add(new Role(null, RoleName.ROLE_EMPLOYEE));
+        user.setTask(null);
+    }
+
+    private void checkExistenceUniqueData(UserCreateDTO obj) {
+        Optional<User> user = repository.findByEmail(obj.getEmail());
+        if (user.isPresent()) {
+            throw new AlreadyExistsException("Email already exists");
+        }
+    }
+    
+    private void updateDataUser(Optional<User> user, UserUpdateDTO data){
+        user.get().setName(data.getName());
+        user.get().setUsername(data.getUsername());
+        user.get().setPassword(passwordEncoder.encode(data.getPassword()));
+        user.get().setEmail(data.getEmail());
+    }
+
+    private void validateExistenceUser(Optional<User> user) {
+        if (user.isEmpty()) {
+            throw new ObjectNotFoundException("User not found!");
+        }
+    }
+
+    private void validateExistenceAssignment(Optional<Task> task, Optional<User> user) {
+        if (task.isEmpty()) {
+            throw new ObjectNotFoundException("Task not found!");
+        }
+        if (user.isEmpty()) {
+            throw new ObjectNotFoundException("User not found!");
+        }
+    }
+
+    private void validateTaskAssignment(Task task) {
+        if (task.getUser() != null) {
+            throw new AlreadyExistsException("This task already belongs to a user");
+        }
+    }
+
+    private void validateUserAssignment(User user) {
+        if (user.getTask() != null) {
+            throw new AlreadyExistsException("This user already has a task assigned");
+        }
+    }
+
+    private void assignTaskForUser(Task task, User user) {
+        task.setUser(user);
+        user.setTask(task);
+    }
+
 }

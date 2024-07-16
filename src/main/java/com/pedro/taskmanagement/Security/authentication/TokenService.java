@@ -16,7 +16,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class TokenService {
 
     private static final String SECRET_KEY = "4Z^XrroxR@dWxqf$mTTKwW$!@#qGr4P";
-    private static final String ISSUER = "pizzurg-api";
+    private static final String ISSUER = "task-management";
     private ConcurrentHashMap<String, Boolean> tokenBlacklist = new ConcurrentHashMap<>();
 
     public String generateToken(UserDetailsImpl user) {

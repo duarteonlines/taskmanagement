@@ -4,14 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pedro.taskmanagement.Task.model.Task;
 import com.pedro.taskmanagement.User.model.User;
 
-import java.io.Serial;
-import java.io.Serializable;
 import java.util.UUID;
 
-public class UserListDTO implements Serializable {
-
-    @Serial
-    private static final long serialVersionUID = 1L;
+public class UserListDTO {
 
     private UUID id;
     private String username;
