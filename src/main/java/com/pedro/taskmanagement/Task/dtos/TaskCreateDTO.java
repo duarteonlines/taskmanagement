@@ -5,9 +5,9 @@ import jakarta.validation.constraints.NotBlank;
 
 public class TaskCreateDTO {
 
-    @NotBlank(message = "Title is null")
+    @NotBlank(message = " is null")
     private String title;
-    @NotBlank(message = "Description is null")
+    @NotBlank(message = " is null")
     private String description;
 
     public TaskCreateDTO(){

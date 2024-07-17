@@ -1,13 +1,14 @@
 package com.pedro.taskmanagement.Task.controller;
 
-import com.pedro.taskmanagement.Task.model.Task;
 import com.pedro.taskmanagement.Task.dtos.TaskCreateDTO;
 import com.pedro.taskmanagement.Task.dtos.TaskListDTO;
 import com.pedro.taskmanagement.Task.dtos.TaskUpdateDTO;
+import com.pedro.taskmanagement.Task.model.Task;
 import com.pedro.taskmanagement.Task.service.TaskService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -65,7 +66,7 @@ public class TaskController {
 
      })
      @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> createTask(@RequestBody TaskCreateDTO obj) {
+    public ResponseEntity<Void> createTask(@RequestBody @Valid TaskCreateDTO obj) {
         Task task  = service.createTask(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}").buildAndExpand(task.getId()).toUri();
         return ResponseEntity.created(uri).build();
@@ -82,7 +83,7 @@ public class TaskController {
 
     })
     @PutMapping(value = "/{id}" ,consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> updateTask(@PathVariable UUID id,@RequestBody TaskUpdateDTO obj) {
+    public ResponseEntity<Void> updateTask(@PathVariable UUID id,@RequestBody @Valid TaskUpdateDTO obj) {
         service.updateTask(id, obj);
         return ResponseEntity.noContent().build();
     }

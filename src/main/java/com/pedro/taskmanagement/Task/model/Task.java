@@ -18,6 +18,7 @@ public class Task implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+    @Column(unique = true)
     private String title;
     private String description;
     @OneToOne

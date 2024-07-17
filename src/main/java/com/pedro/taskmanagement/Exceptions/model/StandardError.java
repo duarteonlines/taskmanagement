@@ -2,7 +2,6 @@ package com.pedro.taskmanagement.Exceptions.model;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.List;
 
 public class StandardError implements Serializable {
 
@@ -12,7 +11,6 @@ public class StandardError implements Serializable {
     private Long timestamp;
     private Integer status;
     private String error;
-
     private String path;
 
     public StandardError() {
@@ -24,7 +22,7 @@ public class StandardError implements Serializable {
         this.error = error;
         this.path = path;
     }
-
+  
     public Long getTimestamp() {
         return timestamp;
     }
