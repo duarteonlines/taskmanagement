@@ -62,6 +62,57 @@ A modelagem de dados é baseada na relação entre tarefas e empregados. As prin
 - **Spring Framework**
 - **PostgreSQL**
 
+## Guia para Rodar o Projeto
+## Pré-requisitos
+
+Certifique-se de que você tem os seguintes softwares instalados em sua máquina:
+
+- [JDK 21](https://www.azul.com/downloads/#zulu)
+- [Maven 3.6.3+](https://maven.apache.org/download.cgi)
+- [Git](https://git-scm.com/downloads)
+
+## Clonando o Repositório
+
+Primeiro, clone o repositório do projeto:
+
+```bash
+git clone https://github.com/oliveiraordep/taskmanagement.git
+cd taskmanagement
+```
+## Configurando o projeto
+
+É importante lembrar de criar a classe principal com o nome **TaskmanagementApplication** e adicionar a anotação **@SpringBootApplication**
+
+Abaixo um exemplo
+```
+package com.pedro.taskmanagement;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class TaskmanagementApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(TaskmanagementApplication.class, args);
+	}
+
+}
+```
+
+Também será necessário configurar o **application.properties** de acordo com seu banco de dados relacional.
+
+## Buildando e rodando o projeto
+
+```bash
+mvn clean install
+```
+
+```bash
+mvn spring-boot:run
+```
+
+
 ## Contribuição
 Contribuições são bem-vindas! Sinta-se à vontade para abrir issues e pull requests.
 
