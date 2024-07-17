@@ -1,28 +1,31 @@
 package com.pedro.taskmanagement.User.dtos;
 
-import java.util.UUID;
+import jakarta.validation.constraints.NotBlank;
 
 public class UserAssignTaskDTO {
 
-    private UUID user;
-    private UUID Task;
+
+    @NotBlank(message = "Id(STRING) is null")
+    private String user;
+    @NotBlank(message = "Id(STRING) is null")
+    private String Task;
 
     public UserAssignTaskDTO(){
     }
 
-    public UUID getUser() {
+    public String getUser() {
         return user;
     }
 
-    public void setUser(UUID user) {
+    public void setUser(String user) {
         this.user = user;
     }
 
-    public UUID getTask() {
+    public String getTask() {
         return Task;
     }
 
-    public void setTask(UUID task) {
+    public void setTask(String task) {
         Task = task;
     }
 }
